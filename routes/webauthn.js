@@ -107,6 +107,7 @@ router.post('/response', (request, response) => {
     let result;
     if(webauthnResp.response.attestationObject !== undefined) {
         /* This is create cred */
+        console.log('This is create cred');
         result = utils.verifyAuthenticatorAttestationResponse(webauthnResp);
 
         if(result.verified) {
@@ -115,6 +116,7 @@ router.post('/response', (request, response) => {
         }
     } else if(webauthnResp.response.authenticatorData !== undefined) {
         /* This is get assertion */
+        console.log('This is get assertion');
         result = utils.verifyAuthenticatorAssertionResponse(webauthnResp, database[request.session.username].authenticators);
     } else {
         response.json({
